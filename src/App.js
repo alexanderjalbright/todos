@@ -11,17 +11,23 @@ export default class App extends Component {
     };
   }
 
-  addTodo = x => {
+  addTodo = newItem => {
     const list = this.state.todoList;
-    list.push(x);
+    list.push(newItem);
+    this.setState({ todoList: list });
+  };
+
+  removeTodo = index => {
+    const list = this.state.todoList;
+    list.splice(index, 1);
     this.setState({ todoList: list });
   };
 
   render() {
     return (
       <div>
-        <AddTodo addTodo={this.addTodo} />
-        <TodoList todoList={this.state.todoList} />
+        <AddTodo add={this.addTodo} />
+        <TodoList todoList={this.state.todoList} remove={this.removeTodo} />
         <button>Reset All</button>
       </div>
     );
