@@ -2,13 +2,15 @@ import React, { Component } from "react";
 
 export default class TodoList extends Component {
   render() {
-    return (
-      <div>
+    const { todoList } = this.props;
+    const list = todoList.map(function(item, index) {
+      return (
         <ul>
-          <li>Item 1</li>
-          <li>Item 2</li>
+          <li key={index}>{item}</li>
+          <button>Delete</button>
         </ul>
-      </div>
-    );
+      );
+    });
+    return <div>{list}</div>;
   }
 }
