@@ -1,0 +1,11 @@
+{
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "vue-html": "html",
+    "markdown": "html"
+  },
+
+  "emmet.triggerExpansionOnTab": true,
+
+  "emmet.showExpandedAbbreviation": "never"
+}

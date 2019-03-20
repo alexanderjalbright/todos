@@ -1,28 +1,24 @@
 import React, { Component } from "react";
 
 export default class AddTodo extends Component {
-  constructor() {
-    super();
-    this.state = {
-      todo: ""
-    };
-  }
-  inputChange(event) {
-    this.setState({ todo: event.target.value });
-  }
+  onAdd = text => {
+    this.props.addNew(this.props.text);
+    this.props.setText("");
+  };
+
+  onTextChange = event => {
+    this.props.setText(event.target.value);
+  };
+
   render() {
-    const add = this.props.add;
+    const { text } = this.props;
     return (
       <div>
         <label>
           Item:
-          <input
-            type="text"
-            value={this.state.todo}
-            onChange={this.inputChange.bind(this)}
-          />
+          <input type="text" value={text} onChange={this.onTextChange} />
         </label>
-        <button onClick={add.bind(this, this.state.todo)}>Add</button>
+        <button onClick={this.onAdd}>Add</button>
       </div>
     );
   }

@@ -7,28 +7,34 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      todoList: ["Item 1", "Item 2", "Item 3"]
+      currentItemText: "",
+      todos: ["Item 1", "Item 2", "Item 3"]
     };
   }
 
-  addTodo = newItem => {
-    const list = this.state.todoList;
-    list.push(newItem);
-    this.setState({ todoList: list });
+  resetAll = () => {
+    this.setState({ currentItemText: "", todos: [] });
   };
 
-  removeTodo = index => {
-    const list = this.state.todoList;
-    list.splice(index, 1);
-    this.setState({ todoList: list });
+  setText = text => {
+    this.setState({ currentItemText: text });
+  };
+
+  addNew = text => {
+    const newTodos = [...this.state.todos, text];
+    this.setState({ todos: newTodos });
   };
 
   render() {
     return (
       <div>
-        <AddTodo add={this.addTodo} />
-        <TodoList todoList={this.state.todoList} remove={this.removeTodo} />
-        <button>Reset All</button>
+        <AddTodo
+          text={this.state.currentItemText}
+          setText={this.setText}
+          addNew={this.addNew}
+        />
+        <TodoList todos={this.state.todos} />
+        <button onClick={this.resetAll}>Reset All</button>
       </div>
     );
   }
