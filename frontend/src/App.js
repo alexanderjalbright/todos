@@ -8,8 +8,14 @@ export default class App extends Component {
     super();
     this.state = {
       currentItemText: "",
-      todos: ["Item 1", "Item 2", "Item 3"]
+      todos: ["Loading..."]
     };
+  }
+
+  componentDidMount() {
+    fetch("https://localhost:44347/api/todos")
+      .then(res => res.json())
+      .then(json => this.setState({ todos: json }));
   }
 
   resetAll = () => {
@@ -21,8 +27,22 @@ export default class App extends Component {
   };
 
   addNew = text => {
-    const newTodos = [...this.state.todos, text];
-    this.setState({ todos: newTodos });
+    fetch("https://localhost:44347/api/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(text)
+    })
+      .then(res => {
+        if (res.ok) {
+          const newTodos = [...this.state.todos, text];
+          this.setState({ todos: newTodos });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   render() {
